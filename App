@@ -1,0 +1,131 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+class Ship implements Comparable<Ship> {
+
+	private int shipLength;
+	private int shipGuns;
+	private String shipName;
+
+	public Ship(int shipLength, int shipGuns, String shipName) {
+		super();
+		this.shipLength = shipLength;
+		this.shipGuns = shipGuns;
+		this.shipName = shipName;
+	}
+
+	public int getShipLength() {
+		return shipLength;
+	}
+
+	public void setShipLength(int shipLength) {
+		this.shipLength = shipLength;
+	}
+
+	public int getShipGuns() {
+		return shipGuns;
+	}
+
+	public void setShipGuns(int shipGuns) {
+		this.shipGuns = shipGuns;
+	}
+
+	public String getShipName() {
+		return shipName;
+	}
+
+	public void setShipName(String shipName) {
+		this.shipName = shipName;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + shipGuns;
+		result = prime * result + shipLength;
+		result = prime * result + ((shipName == null) ? 0 : shipName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ship other = (Ship) obj;
+		if (shipGuns != other.shipGuns)
+			return false;
+		if (shipLength != other.shipLength)
+			return false;
+		if (shipName == null) {
+			if (other.shipName != null)
+				return false;
+		} else if (!shipName.equals(other.shipName))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Ship [Length=" + shipLength + ", Guns=" + shipGuns + ", Name=" + shipName + "]";
+	}
+
+	
+	@Override
+    public int compareTo(Ship ship) {
+        int len1 = shipName.length();
+        int len2 = ship.shipName.length();
+        
+        if(len1 > len2) {
+            return 1;
+        }
+        else if(len1 < len2) {
+            return -1;
+        }
+        else {
+            return shipName.compareTo(ship.shipName);
+        }
+    }
+}
+public class App2 {
+
+	public static void main(String[] args) {
+
+		List<Ship> list = new ArrayList<Ship>();
+		SortedSet<Ship> set = new TreeSet<Ship>();
+
+		addElements(list);
+		addElements(set);
+		
+		Collections.sort(list);
+		
+		showElements(list);
+		System.out.println();
+		showElements(set);
+
+	}
+
+	private static void addElements(Collection<Ship> anon) {
+		anon.add(new Ship(1450, 180, "Rama"));
+		anon.add(new Ship(823, 56, "Valley Forge"));
+		anon.add(new Ship(250, 14, "Java"));
+		anon.add(new Ship(2074, 350, "Babylonia"));
+		anon.add(new Ship(1081, 88, "Invincible"));
+	}
+
+	private static void showElements(Collection<Ship> anon) {
+		for (Ship element : anon) {
+			System.out.println(element);
+		}
+	}
+
+}
